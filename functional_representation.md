@@ -7,6 +7,7 @@
 
 2. **Capture Workflow**
    - Renderer captures screen and audio.
+   - On macOS, the renderer invokes `start-macos-audio` so the main process spawns **SystemAudioDump** for system sound capture. Capture ends via `stop-macos-audio`.
    - Chunks are sent via IPC (`send-audio-content`, `send-image-content`).
    - Kimi module transcribes audio and forwards content to OpenRouter.
 

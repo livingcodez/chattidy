@@ -224,7 +224,35 @@ function setupKimiIpcHandlers(kimiSessionRef) {
         return sendTextMessage(text);
     });
 
+    ipcMain.handle('start-macos-audio', async event => {
+        if (process.platform !== 'darwin') {
+            return {
+                success: false,
+                error: 'macOS audio capture only available on macOS',
+            };
+        }
+
+        try {
+            const success = await startMacOSAudioCapture();
+            return { success };
+        } catch (error) {
+            console.error('Error starting macOS audio capture:', error);
+            return { success: false, error: error.message };
+        }
+    });
+
+    ipcMain.handle('stop-macos-audio', async event => {
+        try {
+            stopMacOSAudioCapture();
+            return { success: true };
+        } catch (error) {
+            console.error('Error stopping macOS audio capture:', error);
+            return { success: false, error: error.message };
+        }
+    });
+
     ipcMain.handle('close-session', async () => {
+        stopMacOSAudioCapture();
         openaiClient = null;
         kimiSessionRef.current = null;
         sendToRenderer('update-status', 'Session closed');

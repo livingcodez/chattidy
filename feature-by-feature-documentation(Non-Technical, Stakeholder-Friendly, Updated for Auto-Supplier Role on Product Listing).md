@@ -6,6 +6,7 @@
 
 ## Capture and Assistance
 - Continuous screen and audio capture provide context to the AI.
+- macOS users benefit from dedicated system audio capture started via the `start-macos-audio` IPC channel.
 - Responses appear in real time within the transparent overlay.
 
 ## History and Profiles
