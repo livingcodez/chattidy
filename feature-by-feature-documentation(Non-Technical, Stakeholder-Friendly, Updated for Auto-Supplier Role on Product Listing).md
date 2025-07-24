@@ -6,6 +6,7 @@
 
 ## Capture and Assistance
 - Continuous screen and audio capture provide context to the AI.
+- First use on macOS prompts for microphone and screen-record permissions.
 - Responses appear in real time within the transparent overlay.
 
 ## History and Profiles

@@ -3,6 +3,7 @@ actor User
 participant "Renderer Process" as R
 participant "Main Process" as M
 component "Kimi Module" as K
+component "SystemAudioDump" as SAD
 User -> R: Interact with UI
 R -> M: IPC events
 M -> K: OpenRouter requests
@@ -10,4 +11,6 @@ K -> "OpenRouter API": requests
 "OpenRouter API" --> K: responses
 K -> M: AI data
 M -> R: updates
+M -> SAD: start/stop audio
+SAD --> K: PCM stream
 @enduml
