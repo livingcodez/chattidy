@@ -1,0 +1,13 @@
+@startuml
+actor User
+participant "Renderer Process" as R
+participant "Main Process" as M
+component "Kimi Module" as K
+User -> R: Interact with UI
+R -> M: IPC events
+M -> K: OpenRouter requests
+K -> "OpenRouter API": requests
+"OpenRouter API" --> K: responses
+K -> M: AI data
+M -> R: updates
+@enduml

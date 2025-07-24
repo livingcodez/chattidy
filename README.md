@@ -12,7 +12,7 @@ A real-time AI assistant that provides contextual help during video calls, inter
 
 ## Features
 
-- **Live AI Assistance**: Real-time help powered by Google Gemini 2.0 Flash Live
+ - **Live AI Assistance**: Real-time help powered by Kimi-k2 via OpenRouter
 - **Screen & Audio Capture**: Analyzes what you see and hear for contextual responses
 - **Multiple Profiles**: Interview, Sales Call, Business Meeting, Presentation, Negotiation
 - **Transparent Overlay**: Always-on-top window that can be positioned anywhere
@@ -21,13 +21,13 @@ A real-time AI assistant that provides contextual help during video calls, inter
 
 ## Setup
 
-1. **Get a Gemini API Key**: Visit [Google AI Studio](https://aistudio.google.com/apikey)
+1. **Get an OpenRouter API Key**: Visit [OpenRouter](https://openrouter.ai)
 2. **Install Dependencies**: `npm install`
 3. **Run the App**: `npm start`
 
 ## Usage
 
-1. Enter your Gemini API key in the main window
+1. Enter your OpenRouter API key in the main window
 2. Choose your profile and language in settings
 3. Click "Start Session" to begin
 4. Position the window using keyboard shortcuts
@@ -49,6 +49,6 @@ A real-time AI assistant that provides contextual help during video calls, inter
 ## Requirements
 
 - Electron-compatible OS (macOS, Windows, Linux)
-- Gemini API key
+- OpenRouter API key
 - Screen recording permissions
 - Microphone/audio permissions

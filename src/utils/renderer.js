@@ -52,7 +52,7 @@ let tokenTracker = {
         this.cleanOldTokens();
     },
 
-    // Calculate image tokens based on Gemini 2.0 rules
+// Calculate image tokens based on model token rules
     calculateImageTokens(width, height) {
         // Images ≤384px in both dimensions = 258 tokens
         if (width <= 384 && height <= 384) {
@@ -149,10 +149,10 @@ function arrayBufferToBase64(buffer) {
     return btoa(binary);
 }
 
-async function initializeGemini(profile = 'interview', language = 'en-US') {
+async function initializeKimi(profile = 'interview', language = 'en-US') {
     const apiKey = localStorage.getItem('apiKey')?.trim();
     if (apiKey) {
-        const success = await ipcRenderer.invoke('initialize-gemini', apiKey, localStorage.getItem('customPrompt') || '', profile, language);
+        const success = await ipcRenderer.invoke('initialize-kimi', apiKey, localStorage.getItem('customPrompt') || '', profile, language);
         if (success) {
             cheddar.setStatus('Live');
         } else {
@@ -167,12 +167,7 @@ ipcRenderer.on('update-status', (event, status) => {
     cheddar.setStatus(status);
 });
 
-// Listen for responses - REMOVED: This is handled in CheatingDaddyApp.js to avoid duplicates
-// ipcRenderer.on('update-response', (event, response) => {
-//     console.log('Gemini response:', response);
-//     cheddar.e().setResponse(response);
-//     // You can add UI elements to display the response if needed
-// });
+// Listen for responses if needed in the future
 
 async function startCapture(screenshotIntervalSeconds = 5, imageQuality = 'medium') {
     // Store the image quality for manual screenshots
@@ -565,7 +560,7 @@ function stopCapture() {
     offscreenContext = null;
 }
 
-// Send text message to Gemini
+// Send text message to Kimi
 async function sendTextMessage(text) {
     if (!text || text.trim().length === 0) {
         console.warn('Cannot send empty text message');
@@ -712,7 +707,7 @@ const cheddar = {
     setResponse: response => cheatingDaddyApp.setResponse(response),
 
     // Core functionality
-    initializeGemini,
+    initializeKimi,
     startCapture,
     stopCapture,
     sendTextMessage,
