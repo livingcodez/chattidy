@@ -180,6 +180,16 @@ export class CheatingDaddyApp extends LitElement {
     }
 
     setResponse(response) {
+        const now = new Date();
+        const timestamp = now.toISOString();
+        const formattedTimestamp = now.toLocaleTimeString('en-US', { hour12: false });
+
+        const newTurn = {
+            response,
+            timestamp,
+            formattedTimestamp,
+        };
+
         // Check if this looks like a filler response (very short responses to hmm, ok, etc)
         const isFillerResponse =
             response.length < 30 &&
@@ -191,22 +201,24 @@ export class CheatingDaddyApp extends LitElement {
 
         if (this._awaitingNewResponse || this.responses.length === 0) {
             // Always add as new response when explicitly waiting for one
-            this.responses = [...this.responses, response];
+            this.responses = [...this.responses, newTurn];
             this.currentResponseIndex = this.responses.length - 1;
             this._awaitingNewResponse = false;
             this._currentResponseIsComplete = false;
-            console.log('[setResponse] Pushed new response:', response);
+            console.log('[setResponse] Pushed new response:', newTurn);
         } else if (!this._currentResponseIsComplete && !isFillerResponse && this.responses.length > 0) {
             // For substantial responses, update the last one (streaming behavior)
             // Only update if the current response is not marked as complete
-            this.responses = [...this.responses.slice(0, this.responses.length - 1), response];
-            console.log('[setResponse] Updated last response:', response);
+            const lastTurn = this.responses[this.responses.length - 1];
+            const updatedTurn = { ...lastTurn, response }; // Keep original timestamp
+            this.responses = [...this.responses.slice(0, this.responses.length - 1), updatedTurn];
+            console.log('[setResponse] Updated last response:', updatedTurn);
         } else {
             // For filler responses or when current response is complete, add as new
-            this.responses = [...this.responses, response];
+            this.responses = [...this.responses, newTurn];
             this.currentResponseIndex = this.responses.length - 1;
             this._currentResponseIsComplete = false;
-            console.log('[setResponse] Added response as new:', response);
+            console.log('[setResponse] Added response as new:', newTurn);
         }
         this.shouldAnimateResponse = true;
         this.requestUpdate();
@@ -515,6 +527,15 @@ export class CheatingDaddyApp extends LitElement {
         }
 
         this.requestUpdate();
+    }
+}
+
+    isValidHHMMSS(timestamp) {
+        if (typeof timestamp !== 'string') {
+            return false;
+        }
+        const regex = /^(?:2[0-3]|[01]?[0-9]):[0-5][0-9]:[0-5][0-9]$/;
+        return regex.test(timestamp);
     }
 }
 
