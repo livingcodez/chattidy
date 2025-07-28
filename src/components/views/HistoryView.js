@@ -109,6 +109,12 @@ export class HistoryView extends LitElement {
             border-left-color: #ed4245; /* Discord red */
         }
 
+        .timestamp {
+            font-size: 9px;
+            color: var(--description-color);
+            margin-left: 6px;
+        }
+
         .back-header {
             display: flex;
             justify-content: space-between;
@@ -372,6 +378,10 @@ export class HistoryView extends LitElement {
         });
     }
 
+    isValidHHMMSS(str) {
+        return /^([01]\d|2[0-3]):[0-5]\d:[0-5]\d$/.test(str || '');
+    }
+
     getSessionPreview(session) {
         if (!session.conversationHistory || session.conversationHistory.length === 0) {
             return 'No conversation yet';
@@ -407,6 +417,7 @@ export class HistoryView extends LitElement {
             meeting: 'Business Meeting',
             presentation: 'Presentation',
             negotiation: 'Negotiation',
+            colleague: 'Colleague',
             exam: 'Exam Assistant',
         };
     }
@@ -505,6 +516,7 @@ export class HistoryView extends LitElement {
                         type: 'user',
                         content: turn.transcription,
                         timestamp: turn.timestamp,
+                        formattedTimestamp: turn.formattedTimestamp,
                     });
                 }
                 if (turn.ai_response) {
@@ -512,6 +524,7 @@ export class HistoryView extends LitElement {
                         type: 'ai',
                         content: turn.ai_response,
                         timestamp: turn.timestamp,
+                        formattedTimestamp: turn.formattedTimestamp,
                     });
                 }
             });
@@ -546,7 +559,16 @@ export class HistoryView extends LitElement {
             </div>
             <div class="conversation-view">
                 ${messages.length > 0
-                    ? messages.map(message => html` <div class="message ${message.type}">${message.content}</div> `)
+                    ? messages.map(
+                          message => html`
+                              <div class="message ${message.type}">
+                                  ${message.content}
+                                  ${this.isValidHHMMSS(message.formattedTimestamp)
+                                      ? html`<span class="timestamp">${message.formattedTimestamp}</span>`
+                                      : ''}
+                              </div>
+                          `,
+                      )
                     : html`<div class="empty-state">No conversation data available</div>`}
             </div>
         `;

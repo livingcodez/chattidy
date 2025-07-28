@@ -487,6 +487,11 @@ export class CustomizeView extends LitElement {
                 description: 'Guidance for business negotiations and deals',
             },
             {
+                value: 'colleague',
+                name: 'Colleague',
+                description: 'Friendly help for everyday teamwork',
+            },
+            {
                 value: 'exam',
                 name: 'Exam Assistant',
                 description: 'Academic assistance for test-taking and exam questions',
@@ -536,6 +541,7 @@ export class CustomizeView extends LitElement {
             meeting: 'Business Meeting',
             presentation: 'Presentation',
             negotiation: 'Negotiation',
+            colleague: 'Colleague',
             exam: 'Exam Assistant',
         };
     }

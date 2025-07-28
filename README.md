@@ -14,7 +14,8 @@ A real-time AI assistant that provides contextual help during video calls, inter
 
 - **Live AI Assistance**: Real-time help powered by Google Gemini 2.0 Flash Live
 - **Screen & Audio Capture**: Analyzes what you see and hear for contextual responses
-- **Multiple Profiles**: Interview, Sales Call, Business Meeting, Presentation, Negotiation
+- **Multiple Profiles**: Interview, Sales Call, Business Meeting, Presentation, Negotiation, Colleague
+- **Timestamped History**: Conversation turns include precise `HH:MM:SS` timestamps
 - **Transparent Overlay**: Always-on-top window that can be positioned anywhere
 - **Click-through Mode**: Make window transparent to clicks when needed
 - **Cross-platform**: Works on macOS, Windows, and Linux (kinda, dont use, just for testing rn)

@@ -42,6 +42,7 @@ function saveConversationTurn(transcription, aiResponse) {
 
     const conversationTurn = {
         timestamp: Date.now(),
+        formattedTimestamp: new Date().toISOString().slice(11, 19),
         transcription: transcription.trim(),
         ai_response: aiResponse.trim(),
     };
