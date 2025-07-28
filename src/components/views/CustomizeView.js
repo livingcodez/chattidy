@@ -491,6 +491,11 @@ export class CustomizeView extends LitElement {
                 name: 'Exam Assistant',
                 description: 'Academic assistance for test-taking and exam questions',
             },
+            {
+                value: 'colleague',
+                name: 'Colleague',
+                description: 'Interactive step guide',
+            },
         ];
     }
 
@@ -537,6 +542,7 @@ export class CustomizeView extends LitElement {
             presentation: 'Presentation',
             negotiation: 'Negotiation',
             exam: 'Exam Assistant',
+            colleague: 'Colleague',
         };
     }
 

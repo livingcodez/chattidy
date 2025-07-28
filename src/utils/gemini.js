@@ -20,6 +20,10 @@ let maxReconnectionAttempts = 3;
 let reconnectionDelay = 2000; // 2 seconds between attempts
 let lastSessionParams = null;
 
+function isValidHHMMSS(str) {
+    return typeof str === 'string' && /^([0-1]\d|2[0-3]):[0-5]\d:[0-5]\d$/.test(str);
+}
+
 function sendToRenderer(channel, data) {
     const windows = BrowserWindow.getAllWindows();
     if (windows.length > 0) {
@@ -40,8 +44,10 @@ function saveConversationTurn(transcription, aiResponse) {
         initializeNewSession();
     }
 
+    const iso = new Date().toISOString();
     const conversationTurn = {
-        timestamp: Date.now(),
+        timestamp: iso,
+        formattedTimestamp: iso.slice(11, 19),
         transcription: transcription.trim(),
         ai_response: aiResponse.trim(),
     };
@@ -670,4 +676,5 @@ module.exports = {
     sendAudioToGemini,
     setupGeminiIpcHandlers,
     attemptReconnection,
+    isValidHHMMSS,
 };

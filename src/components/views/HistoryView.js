@@ -1,6 +1,11 @@
 import { html, css, LitElement } from '../../assets/lit-core-2.7.4.min.js';
 import { resizeLayout } from '../../utils/windowResize.js';
 
+// Access timestamp validation helper from main utils
+const { isValidHHMMSS } = window.require
+    ? window.require('../../utils/gemini.js')
+    : { isValidHHMMSS: () => false };
+
 export class HistoryView extends LitElement {
     static styles = css`
         * {
@@ -107,6 +112,12 @@ export class HistoryView extends LitElement {
 
         .message.ai {
             border-left-color: #ed4245; /* Discord red */
+        }
+
+        .message-time {
+            font-size: 10px;
+            color: var(--description-color);
+            margin-right: 6px;
         }
 
         .back-header {
@@ -408,6 +419,7 @@ export class HistoryView extends LitElement {
             presentation: 'Presentation',
             negotiation: 'Negotiation',
             exam: 'Exam Assistant',
+            colleague: 'Colleague',
         };
     }
 
@@ -504,14 +516,18 @@ export class HistoryView extends LitElement {
                     messages.push({
                         type: 'user',
                         content: turn.transcription,
-                        timestamp: turn.timestamp,
+                        timestamp: turn.formattedTimestamp && isValidHHMMSS(turn.formattedTimestamp)
+                            ? turn.formattedTimestamp
+                            : new Date(turn.timestamp).toISOString().slice(11, 19),
                     });
                 }
                 if (turn.ai_response) {
                     messages.push({
                         type: 'ai',
                         content: turn.ai_response,
-                        timestamp: turn.timestamp,
+                        timestamp: turn.formattedTimestamp && isValidHHMMSS(turn.formattedTimestamp)
+                            ? turn.formattedTimestamp
+                            : new Date(turn.timestamp).toISOString().slice(11, 19),
                     });
                 }
             });
@@ -546,7 +562,14 @@ export class HistoryView extends LitElement {
             </div>
             <div class="conversation-view">
                 ${messages.length > 0
-                    ? messages.map(message => html` <div class="message ${message.type}">${message.content}</div> `)
+                    ? messages.map(
+                          message => html`
+                              <div class="message ${message.type}">
+                                  <span class="message-time">${message.timestamp}</span>
+                                  ${message.content}
+                              </div>
+                          `
+                      )
                     : html`<div class="empty-state">No conversation data available</div>`}
             </div>
         `;
