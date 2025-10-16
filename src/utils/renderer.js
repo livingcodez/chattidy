@@ -695,21 +695,21 @@ function handleShortcut(shortcutKey) {
 }
 
 // Create reference to the main app element
-const cheatingDaddyApp = document.querySelector('cheating-daddy-app');
+const mascotaiApp = document.querySelector('mascotai-app');
 
 // Consolidated cheddar object - all functions in one place
 const cheddar = {
     // Element access
-    element: () => cheatingDaddyApp,
-    e: () => cheatingDaddyApp,
+    element: () => mascotaiApp,
+    e: () => mascotaiApp,
 
     // App state functions - access properties directly from the app element
-    getCurrentView: () => cheatingDaddyApp.currentView,
-    getLayoutMode: () => cheatingDaddyApp.layoutMode,
+    getCurrentView: () => mascotaiApp.currentView,
+    getLayoutMode: () => mascotaiApp.layoutMode,
 
     // Status and response functions
-    setStatus: text => cheatingDaddyApp.setStatus(text),
-    setResponse: response => cheatingDaddyApp.setResponse(response),
+    setStatus: text => mascotaiApp.setStatus(text),
+    setResponse: response => mascotaiApp.setResponse(response),
 
     // Core functionality
     initializeGemini,
