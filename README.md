@@ -1,6 +1,6 @@
 <img src="/src/assets/logo.png" alt="uwu" width="200"/>
 
-# Cheating Daddy
+# mascotai
 
 > [!NOTE]  
 > Use latest MacOS and Windows version, older versions have limited support
@@ -40,12 +40,6 @@ A real-time AI assistant that provides contextual help during video calls, inter
 - **Click-through**: `Ctrl/Cmd + M` - Toggle mouse events
 - **Close/Back**: `Ctrl/Cmd + \` - Close window or go back
 - **Send Message**: `Enter` - Send text to AI
-
-## Audio Capture
-
-- **macOS**: [SystemAudioDump](https://github.com/Mohammed-Yasin-Mulla/Sound) for system audio
-- **Windows**: Loopback audio capture
-- **Linux**: Microphone input
 
 ## Requirements
 
